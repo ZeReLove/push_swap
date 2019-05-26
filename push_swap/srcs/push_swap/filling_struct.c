@@ -6,13 +6,13 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 17:09:22 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/25 17:56:51 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/05/26 19:19:51 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int ft_atoi(char *str)
+int ft_atoi_push_swap(char *str)
 {
     int i;
     int j;
@@ -46,12 +46,16 @@ void fill_struct(t_main *arr, int argc, char **argv)
 
     i = 1;
     j = 0;
-    if (!(arr->stack_a = malloc(sizeof(int) * argc)))
-        return (NULL);
-    while (i <= argc)
+    arr->stack_a = malloc(sizeof(int) * argc);
+    arr->stack_b = malloc(sizeof(int) * argc);
+    while (i < argc)
     {
-        arr->stack_a[j] = ft_atoi(argv[i]);
+        arr->stack_a[j] = ft_atoi_push_swap(argv[i]);
         i++;
         j++;
     }
 }
+
+//// To add the case when memory is not allocated
+
+// Work correctly 

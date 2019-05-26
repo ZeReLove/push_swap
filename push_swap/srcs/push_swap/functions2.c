@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 18:29:49 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/25 18:30:34 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/05/26 19:20:56 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void ft_rb(t_main *arr)
 
 void ft_rr(t_main *arr)
 {
-    ft_ra(&arr);
-    ft_rb(&arr);
+    ft_ra(arr);
+    ft_rb(arr);
 }

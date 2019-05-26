@@ -4,7 +4,6 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
-# include "checker.h"
 
 # define ABS(n)		((n < 0) ? -(n) : (n))
 

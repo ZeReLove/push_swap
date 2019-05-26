@@ -6,79 +6,54 @@
 #    By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/21 17:01:17 by mrolfe            #+#    #+#              #
-#    Updated: 2019/05/21 17:01:31 by mrolfe           ###   ########.fr        #
+#    Updated: 2019/05/26 20:02:22 by mrolfe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CHECKER = checker
-PUSH_SWAP = push_swap
+NAME = push_swap
+
+SRCS = srcs/check.c srcs/filling_struct.c srcs/functions.c srcs/functions2.c 
+		srcs/functions3.c srcs/push_swap.c srcs/sorting.c
+OBJ = $(SRCS:.c=.o)
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -g
-MLXFLAGS = -framework OpenGL -framework AppKit
+CFLAGS = -Wall -Wextra -Werror -g
 
-SRCDIR = srcs/
-OBJDIR = obj/
+LIBFT = ./libft/libft.a
+INC = -I ./includes
+LIBLINK = -L ./libft -lft
+LIBINC = -I ./libft/includes
 
-CH_FILES = checker	visual	drawing
-CH_SRC = $(addprefix $(SRCDIR), $(addsuffix .c,$(CH_FILES)))
-CH_OBJ = $(addprefix $(OBJDIR),$(addsuffix .o,$(CH_FILES)))
+all: $(NAME) 
 
-PS_FILES = push_swap	sorting		sort_three	pivots
-PS_SRC = $(addprefix $(SRCDIR), $(addsuffix .c,$(PS_FILES)))
-PS_OBJ = $(addprefix $(OBJDIR),$(addsuffix .o,$(PS_FILES)))
+%.o:%.c
+	@$(CC) $(CFLAGS) $(LIBINC) $(INC) -o $@ -c $<
 
-COMMON = validates	validate_tools		operations	stack_print		
-COMMON_SRC = $(addprefix $(SRCDIR), $(addsuffix .c,$(COMMON)))
-COMMON_OBJ = $(addprefix $(OBJDIR),$(addsuffix .o,$(COMMON)))
-
-LIBFT = ./libft/libftprintf.a 
-MLXLIB = ./minilibx/libmlx.a
-INCDIR = -I ./includes
-LIBLINK = -L ./libft -lftprintf -L ./minilibx -lmlx
-LIBINC = -I ./libft/includes -I ./minilibx
-
-all: $(LIBFT) $(MLXLIB) $(CHECKER) $(PUSH_SWAP)
+libft: $(LIBFT)
 
 $(LIBFT):
+	@echo "Compiling libft..."
 	@make -C ./libft
+	@echo "OK!"
 
-$(MLXLIB):
-	@make -C ./minilibx
-
-$(OBJDIR):
-	@echo "Creating Push_Swap object files directory..."
-	@mkdir $(OBJDIR)
-	@echo "Directory created!"
-
-$(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
-	@$(CC) $(FLAGS) $(INCDIR) $(LIBINC) -c $< -o $@
-
-$(CHECKER): $(CH_OBJ) $(COMMON_OBJ)
-	@echo "Compiling checker..."
-	@$(CC) $(LIBLINK) $(MLXFLAGS) -o $(CHECKER) $(CH_OBJ) $(COMMON_OBJ)
-	@echo "Checker is compiled!"
-
-$(PUSH_SWAP): $(PS_OBJ) $(COMMON_OBJ)
+$(NAME): libft $(OBJ)
 	@echo "Compiling push_swap..."
-	@$(CC) $(LIBLINK) $(MLXFLAGS) -o $(PUSH_SWAP) $(PS_OBJ) $(COMMON_OBJ)
-	@echo "Push_swap is compiled!"
+	@$(CC) $(LIBLINK) -o $(NAME) $(OBJ)
+	@echo "OK!"
 
-libclean:
-	@make clean -C ./libft
-	@make clean -C ./minilibx
+rmlib:
+	@echo "Deleting libft object files and libft.a..."
+	@make fclean -C ./libft
+	@echo "OK!"
 
-clean: libclean
-	@echo "Deleting Push_swap object files..."
-	@rm -rf $(OBJDIR)
-	@echo "Push_swap object files are deleted!"
+clean: rmlib
+	@echo "Deleting fillit object files..."
+	@rm -rf $(OBJ)
+	@echo "OK!"
 
 fclean: clean
-	@echo "Deleting push_swap and checker..."
-	@rm -rf $(CHECKER) $(PUSH_SWAP)
-	@echo "Executable files are deleted!"
-	@make fclean -C ./libft
-	@echo "Everything is cleaned!"
+	@echo "Deleting fillit..."
+	@rm -rf $(NAME)
+	@echo "OK!"
 
-re: fclean
-	@$(MAKE) all
+re: fclean all
