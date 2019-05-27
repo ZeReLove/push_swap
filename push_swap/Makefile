@@ -6,14 +6,14 @@
 #    By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/21 17:01:17 by mrolfe            #+#    #+#              #
-#    Updated: 2019/05/26 20:02:22 by mrolfe           ###   ########.fr        #
+#    Updated: 2019/05/27 14:24:01 by mrolfe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRCS = srcs/check.c srcs/filling_struct.c srcs/functions.c srcs/functions2.c 
-		srcs/functions3.c srcs/push_swap.c srcs/sorting.c
+SRCS = srcs/push_swap/check.c srcs/push_swap/filling_struct.c srcs/push_swap/functions.c srcs/push_swap/functions2.c \
+		srcs/push_swap/functions3.c srcs/push_swap/push_swap.c srcs/push_swap/sorting.c
 OBJ = $(SRCS:.c=.o)
 
 CC = gcc
@@ -47,12 +47,12 @@ rmlib:
 	@echo "OK!"
 
 clean: rmlib
-	@echo "Deleting fillit object files..."
+	@echo "Deleting push_swap object files..."
 	@rm -rf $(OBJ)
 	@echo "OK!"
 
 fclean: clean
-	@echo "Deleting fillit..."
+	@echo "Deleting push_swap..."
 	@rm -rf $(NAME)
 	@echo "OK!"
 

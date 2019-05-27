@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 typedef struct s_main
 {
     int *stack_a;

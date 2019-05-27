@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:26:19 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/26 19:20:42 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/05/27 16:48:23 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ void ft_sa(t_main *arr)
     
     i = arr->stack_a[0];
     j = arr->stack_a[1];
-    tmp = 0;
     tmp = i;
-    i = j;
-    j = tmp;
+    arr->stack_a[0] = j;
+    arr->stack_a[1] = tmp;
 }
 
 void ft_sb(t_main *arr)
@@ -34,10 +33,9 @@ void ft_sb(t_main *arr)
     
     i = arr->stack_b[0];
     j = arr->stack_b[1];
-    tmp = 0;
     tmp = i;
-    i = j;
-    j = tmp;
+    arr->stack_b[0] = j;
+    arr->stack_b[1] = tmp;
 }
 
 void ft_ss(t_main *arr)
