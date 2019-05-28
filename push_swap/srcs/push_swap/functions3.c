@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 18:29:52 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/27 16:08:43 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/05/28 18:20:14 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,4 @@ void ft_rrr(t_main *arr)
 {
     ft_rra(arr);
     ft_rrb(arr);
-}
-
-void num_a_calculation(t_main *arr)
-{
-    int len;
-    
-    len = 0;
-    while(arr->stack_a[len])
-        len++;
-    arr->num_a = len;
-}
-
-void num_b_calculation(t_main *arr)
-{
-    int len;
-    
-    len = 0;
-    while(arr->stack_b[len])
-        len++;
-    arr->num_b = len;
 }

@@ -7,6 +7,31 @@ typedef struct s_main
     int num;
 }              t_main;
 
+// Old version finding mediana_for_a
+
+void mediana_rotating_for_a(t_main *arr)
+{
+    int i;
+    int sum;
+    int mediana;
+
+    i = 0;
+    sum = 0;
+    mediana = 0;
+    while (i < arr->num_a)
+    {
+        sum += arr->stack_a[i];
+        i++;
+    }
+    mediana = sum / arr->num_a;
+    i = 0;
+    if (arr->stack_a[i] >= mediana)
+        ft_ra(arr);
+    else
+        ft_pa(arr);
+}
+
+
 int is_bubble_sorted(int *array, int array_len)
 {
     int i;

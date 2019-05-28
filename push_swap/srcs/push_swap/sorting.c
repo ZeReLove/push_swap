@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:10:56 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/27 17:56:27 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/05/28 18:26:36 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void main_algorithm(t_main *arr)
 {
     while (!(is_sorted(arr)))
     {
-        while (arr->num_a > 3)
+        if (arr->num_a > 3)
             mediana_rotating_for_a(arr);
-        while (arr->num_b > 3)
+        if (arr->num_b > 3)
             mediana_rotating_for_b(arr);
         if (arr->num_a <= 3 || arr->num_b <= 3)
             sorting_three(arr);          
@@ -71,104 +71,55 @@ void mediana_rotating_for_a(t_main *arr)
 {
     int i;
     int sum;
-    int mediana;
 
     i = 0;
     sum = 0;
-    mediana = 0;
-    while (i < arr->num_a)
+    arr->num_a = 0;
+    mediana_finding(arr);
+    if (!arr->block_count_a)
+        arr->block_count_a = 0; 
+    while(arr->block_count_a < arr->num_a)
     {
-        sum += arr->stack_a[i];
-        i++;
+        if (arr->stack_a[i++] >= arr->mediana)
+        {
+            ft_ra(arr);
+            arr->num_a++;
+        }
+        else
+        {
+            ft_pb(arr);
+            arr->block_count_b++;
+            arr->num_b++;
+        }
+        arr->block_count_a++;
     }
-    mediana = sum / arr->num_a;
-    i = 0;
-    if (arr->stack_a[i] >= mediana)
-        ft_ra(arr);
-    else
-        ft_pa(arr);
 }
 
-void mediana_rotating_for_b(int *array, t_main *arr)
+void mediana_rotating_for_b(t_main *arr)
 {
     int i;
     int sum;
-    int mediana;
 
     i = 0;
     sum = 0;
-    mediana = mediana_finding(array, arr);
-    if (arr->stack_b[i] >= mediana)
-        ft_rb(arr);
-    else
-        ft_pb(arr);
-}
-
-int *bubble_sort(t_main *arr)
-{
-    int i;
-    int j;
-    int tmp;
-    int *array;
-
-    i = 0;
-    j = 1;
-    array = malloc(sizeof(int) * arr->num_a);
-    array = ft_strcpy(array, arr->stack_a);
-    while (j != arr->num_a)
+    mediana_finding(arr);
+    while(arr->block_count_b < arr->num_b)
     {
-        if (array[i] > array[j])
+        if (arr->stack_b[i++] >= arr->mediana)
         {
-            tmp = array[j];
-            array[j] = array[i];
-            array[i] = tmp;
-            i++;
-            j++;
+            ft_rb(arr);
+            arr->num_b++;            
         }
         else
         {
-            i++;
-            j++;
+            ft_pa(arr);
+            arr->block_count_a++;
+            arr->num_a++;            
         }
     }
-    if (is_bubble_sorted(array, arr))
-        return (array);
-    else
-        bubble_sort(arr);
-    return (array);
 }
 
 
-int is_bubble_sorted(int *array, t_main *arr)
-{
-    int i;
-
-    i = 0;
-    while (i < arr->num_a - 1)
-    {
-        if (array[i] < array[i + 1])
-            i++;
-        else
-            return (0);
-    }
-    if (i == arr->num_a - 1)
-        return (1);
-    else
-        return (0);
-}
-
-int mediana_finding(int *array, t_main *arr)
-{
-    int i;
-    int *array_f;
-    int mediana;
-
-    i = 0;
-    array_f = bubble_sort(arr);
-    i = arr-> num_a / 2;
-    mediana = array[i];
-    return (mediana);    
-}
 
 // Changed mediana finding in mediana_rotating_for_b
 // Saved mediana finding in mediana_rotating_for_a

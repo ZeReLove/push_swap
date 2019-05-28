@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:44:05 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/26 17:12:26 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/05/28 18:21:43 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
 
 typedef struct s_main
@@ -24,6 +25,10 @@ typedef struct s_main
     int num_a;
     int num_b;
     int num;
+    int *array;
+    int mediana;
+    int block_count_a;
+    int block_count_b;
 }              t_main;
 
 int check_symbols(int argc, char **argv);
@@ -42,13 +47,15 @@ void ft_rr(t_main *arr);
 void ft_rra(t_main *arr);
 void ft_rrb(t_main *arr);
 void ft_rrr(t_main *arr);
-void num_a_calculation(t_main *arr);
-void num_b_calculation(t_main *arr);
 int main(int argc, char **argv);
 void main_algorithm(t_main *arr);
 void sorting_three(t_main *arr);
 int is_sorted(t_main *arr);
 void mediana_rotating_for_a(t_main *arr);
 void mediana_rotating_for_b(t_main *arr);
+void bubble_sort(t_main *arr);
+int is_bubble_sorted(t_main *arr);
+void mediana_finding(t_main *arr);
+void filling_array(t_main *arr);
 
 #endif
