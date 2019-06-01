@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:10:56 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/28 18:26:36 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/01 17:26:22 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void sorting_three(t_main *arr)
         while (!(is_sorted(arr)))
         {
             ft_sa(arr);
-            while (!(is_sorted(arr)))
+            if(!(is_sorted(arr)))
                 ft_rra(arr);
+            else
+                return ;
         }
     }
     if (arr->num_b <= 3)
@@ -45,6 +47,8 @@ void sorting_three(t_main *arr)
         }
     }
 }
+
+//functions rra ans sa work correctly
 
 int is_sorted(t_main *arr)
 {
@@ -70,30 +74,30 @@ int is_sorted(t_main *arr)
 void mediana_rotating_for_a(t_main *arr)
 {
     int i;
-    int sum;
 
     i = 0;
-    sum = 0;
-    arr->num_a = 0;
-    mediana_finding(arr);
+    mediana_finding(&arr);
     if (!arr->block_count_a)
         arr->block_count_a = 0; 
-    while(arr->block_count_a < arr->num_a)
+    while (i < arr->num_a)
     {
-        if (arr->stack_a[i++] >= arr->mediana)
+        if (arr->stack_a[i] >= arr->mediana)
         {
             ft_ra(arr);
-            arr->num_a++;
+            arr->block_count_a++;
         }
         else
         {
             ft_pb(arr);
             arr->block_count_b++;
+            arr->num_a--;
             arr->num_b++;
         }
-        arr->block_count_a++;
+        i++;
     }
 }
+
+// DOESN'T WORK CORRECTLY
 
 void mediana_rotating_for_b(t_main *arr)
 {
@@ -119,8 +123,13 @@ void mediana_rotating_for_b(t_main *arr)
     }
 }
 
+// DOESN'T WORK CORRECTLY
+
+
 
 
 // Changed mediana finding in mediana_rotating_for_b
 // Saved mediana finding in mediana_rotating_for_a
 // Needed to test what variant is correct
+
+

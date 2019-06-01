@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 16:03:01 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/28 18:22:09 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/01 14:12:04 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int main(int argc, char **argv)
         {
             fill_struct(&arr, argc, argv);
             main_algorithm(&arr);
-            // while (i < arr.num_a)
-            // {
-            //     printf("%d\n",  arr.stack_a[i]);
-            //     i++;
-            // }
+            while (i < arr.num_a)
+            {
+                printf("%d\n",  arr.stack_a[i]);
+                i++;
+            }
             free(arr.stack_a);
             free(arr.stack_b);
         }   
