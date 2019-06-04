@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 17:09:22 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/28 18:20:35 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/04 18:03:00 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void fill_struct(t_main *arr, int argc, char **argv)
         i++;
         j++;
     }
-    arr->num_a = argc - 1;
+    arr->num_b = 0;
 }
 
 //// To add the case when memory is not allocated
