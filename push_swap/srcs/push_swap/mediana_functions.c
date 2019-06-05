@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:12:36 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/28 18:27:48 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/05 15:31:08 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void filling_array(t_main *arr)
 
     i = 0;
     j = 0;
-    arr->array = malloc(sizeof(int) * (arr->num_a + 1));
+    if (!(arr->array = malloc(sizeof(int) * (arr->num_a + 1))))
+        return ;
     while(i < arr->num_a)
     {
         arr->array[i] = arr->stack_a[j];

@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 18:29:52 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/04 16:47:53 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/05 18:05:48 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void ft_rrb(t_main *arr)
     int i;
     int last_el;
 
-    i = arr->num_b - 2;
+    i = 0;
+    if (arr->num_b != 0) // ???
+        i = arr->num_b - 2;
     last_el = arr->stack_b[arr->num_b - 1];
     while (i != -1)
     {
