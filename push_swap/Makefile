@@ -6,14 +6,15 @@
 #    By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/21 17:01:17 by mrolfe            #+#    #+#              #
-#    Updated: 2019/05/28 16:16:00 by mrolfe           ###   ########.fr        #
+#    Updated: 2019/06/06 13:20:56 by mrolfe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
 SRCS = srcs/push_swap/check.c srcs/push_swap/filling_struct.c srcs/push_swap/functions.c srcs/push_swap/functions2.c \
-		srcs/push_swap/functions3.c srcs/push_swap/push_swap.c srcs/push_swap/sorting.c srcs/push_swap/mediana_functions.c
+		srcs/push_swap/functions3.c srcs/push_swap/push_swap.c srcs/push_swap/sorting.c srcs/push_swap/mediana_functions_for_a.c \
+		srcs/push_swap/mediana_functions_for_b.c
 OBJ = $(SRCS:.c=.o)
 
 CC = gcc

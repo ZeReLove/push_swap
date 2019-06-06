@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 17:09:22 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/04 18:03:00 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/06 17:04:41 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void fill_struct(t_main *arr, int argc, char **argv)
     j = 0;
     arr->stack_a = malloc(sizeof(int) * argc);
     arr->stack_b = malloc(sizeof(int) * argc);
+    arr->block_a = malloc(sizeof(int) * argc);
+    arr->block_b = malloc(sizeof(int) * argc);
     while (i < argc)
     {
         arr->stack_a[j] = ft_atoi_push_swap(argv[i]);
@@ -55,6 +57,7 @@ void fill_struct(t_main *arr, int argc, char **argv)
         j++;
     }
     arr->num_b = 0;
+    arr->num_a = argc - 1;
 }
 
 //// To add the case when memory is not allocated

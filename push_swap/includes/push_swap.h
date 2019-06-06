@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:44:05 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/04 16:40:13 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/06 16:53:04 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ typedef struct s_main
 {
     int *stack_a;
     int *stack_b;
-    int *stack_a2;
-    int *stack_b2;
     int num_a;
     int num_b;
-    int num_a2;
-    int num_b2;
+    int *block_a;
+    int *block_b;
     int num;
     int *array;
     int mediana;
@@ -60,7 +58,12 @@ void mediana_rotating_for_a(t_main *arr);
 void mediana_rotating_for_b(t_main *arr);
 void bubble_sort(t_main *arr);
 int is_bubble_sorted(t_main *arr);
-void mediana_finding(t_main *arr);
+void mediana_finding_for_a(t_main *arr);
 void filling_array(t_main *arr);
+void mediana_finding_for_b(t_main *arr);
+int is_bubble_sorted_for_b(t_main *arr);
+void filling_array_for_b(t_main *arr);
+void bubble_sort_for_b(t_main *arr);
+void sort_three(t_main *arr);
 
 #endif
