@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:44:05 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/06 16:53:04 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/07 16:20:28 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,13 @@ void mediana_finding_for_b(t_main *arr);
 int is_bubble_sorted_for_b(t_main *arr);
 void filling_array_for_b(t_main *arr);
 void bubble_sort_for_b(t_main *arr);
-void sort_three(t_main *arr);
+void sorting_three(t_main *arr);
+void sort_for_block_count(t_main *arr);
+int is_sorted_for_block_a(t_main *arr);
+int is_sorted_for_block_b(t_main *arr);
+void ft_sa_for_block_a(t_main *arr);
+void ft_sb_for_block_b(t_main *arr);
+void ft_rra_for_block_a(t_main *arr);
+void ft_rrb_for_block_b(t_main *arr);
 
 #endif

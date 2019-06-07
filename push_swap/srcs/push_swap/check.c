@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:05:31 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/04 16:33:45 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/07 14:47:50 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,10 @@ int check_duplicates(t_main *arr)
     j = 1;
     while(i < arr->num_a)
     {
-        while(j <= arr->num_a)
-        {
-            if (arr->stack_a[i] == arr->stack_b[j])
-                return (0);
-            else
-                j++;    
-        }
-        i++;
-        j = i + 1;
+        if (arr->stack_a[i] == arr->stack_a[i + 1])
+            return (0);
+        else
+            i++;
     }
     if (i == arr->num_a)
         return (1);

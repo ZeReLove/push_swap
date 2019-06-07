@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:10:56 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/06 16:53:50 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/07 16:26:42 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,26 @@ void main_algorithm(t_main *arr)
     
     while (!(is_sorted_for_a(arr)))
     {
-        while (arr->num_a > 3)
+        while (arr->num_a > 3 && arr->block_count_a == 0)
             mediana_rotating_for_a(arr);
         if (arr->num_a <= 3 || arr->num_b <= 3)
             sorting_three(arr);
         if (arr->block_count_a <= 3 || arr->block_count_b <=3)
-            sort_three(arr);
-        while (arr->num_b > 3)
+            sort_for_block_count(arr);
+        while (arr->num_b > 3 && arr->block_count_b == 0)
             mediana_rotating_for_b(arr);
         if (arr->num_a <= 3 || arr->num_b <= 3)
             sorting_three(arr);
         if ((is_sorted_for_a(arr)) && arr->num_b != 0)
         {
             i = 0;
-            while (i++ < arr->num_b + 2)
+            while (i++ < arr->num - arr->num_a)
             {
                 ft_rrb(arr);
                 ft_pa(arr);
             }
             arr->num_b = 0;        
-        }
-        arr->num = arr->num_a + arr->num_b;         
+        }  
     }
     k = 0;
     while (k < arr->num_a)
@@ -153,39 +152,147 @@ void sorting_three(t_main *arr)
     }
 }
 
-void sort_three(t_main *arr)
+
+void sort_for_block_count(t_main *arr)
+{
+    int i;
+    int j;
+    int k;
+    int l;
+
+    i = 0;
+    j = 0;
+    k = 0;
+    l = 0;
+    if (arr->block_count_a <= 3 && arr->block_count_a > 1)
+    {
+        while (!(is_sorted_for_block_a(arr)))
+        {
+            if (arr->block_a[i] < arr->block_a[i + 1])
+                ft_sa_for_block_a(arr);
+            if (!(is_sorted_for_block_a(arr)))
+                ft_rra_for_block_a(arr);
+            else
+                return ;
+        }
+        while (j++ < arr->block_count_a)
+            arr->stack_a[k++] = arr->block_a[l++];
+    }
+    i = 0;
+    j = 0;
+    k = 0;
+    l = 0;
+    if (arr->block_count_b <= 3 && arr->block_count_b > 1)
+    {
+        while (!(is_sorted_for_block_b(arr)))
+        {
+            if (arr->block_b[i] < arr->block_b[i + 1])
+                ft_sb_for_block_b(arr);
+            if (!(is_sorted_for_block_b(arr)))
+                ft_rrb_for_block_b(arr);
+            else
+                return ;
+        }
+        while (j++ < arr->block_count_b)
+            arr->stack_b[k++] = arr->block_b[l++];
+    }
+}
+
+void ft_sa_for_block_a(t_main *arr)
+{
+    int i;
+    int j;
+    int tmp;
+    
+    i = arr->block_a[0];
+    j = arr->block_a[1];
+    tmp = i;
+    arr->block_a[0] = j;
+    arr->block_a[1] = tmp;
+}
+
+void ft_sb_for_block_b(t_main *arr)
+{
+    int i;
+    int j;
+    int tmp;
+    
+    i = arr->block_b[0];
+    j = arr->block_b[1];
+    tmp = i;
+    arr->block_b[0] = j;
+    arr->block_b[1] = tmp;
+}
+
+void ft_rra_for_block_a(t_main *arr)
+{
+    int i;
+    int last_el;
+
+    i = arr->block_count_a - 2;
+    last_el = arr->block_a[arr->block_count_a - 1];
+    while (i != -1)
+    {
+        arr->block_a[i + 1] = arr->block_a[i];
+        i--;
+    }
+    arr->block_a[0] = last_el;
+}
+
+void ft_rrb_for_block_b(t_main *arr)
+{
+    int i;
+    int last_el;
+
+    i = 0;
+    if (arr->block_count_b != 0) // ???
+        i = arr->block_count_b - 2;
+    last_el = arr->block_b[arr->block_count_b - 1];
+    while (i != -1)
+    {
+        arr->block_b[i + 1] = arr->block_b[i];
+        i--;
+    }
+    arr->block_b[0] = last_el;
+}
+
+//functions rra ans sa work correctly
+
+int is_sorted_for_block_a(t_main *arr)
 {
     int i;
 
     i = 0;
-    if (arr->block_count_a <= 3 && arr->block_count_a > 1)
+    while (i < arr->block_count_a - 1)
     {
-        while (!(is_sorted_for_a(arr)))
-        {
-            if (arr->stack_a[i] > arr->stack_a[i + 1])
-                ft_sa(arr);
-            if (!(is_sorted_for_a(arr)))
-                ft_rra(arr);
-            else
-                return ;
-        }
+        if (arr->block_a[i] < arr->block_a[i + 1])
+            i++;
+        else
+            return (0);
     }
-    i = 0;
-    if (arr->num_b <= 3 && arr->num_b > 1)
-    {
-        while (!(is_sorted_for_b(arr)))
-        {
-            if (arr->stack_b[i] > arr->stack_b[i + 1])
-            ft_sb(arr);
-            if (!(is_sorted_for_b(arr)))
-                ft_rrb(arr);
-            else
-                return ;
-        }
-    }
+    if (i == arr->block_count_a - 1)
+        return (1);
+    else
+        return (0);
 }
 
-//functions rra ans sa work correctly
+int is_sorted_for_block_b(t_main *arr)
+{
+    int i;
+
+    i = 0;
+    while (i < arr->block_count_b - 1)
+    {
+        if (arr->block_b[i] < arr->block_b[i + 1])
+            i++;
+        else
+            return (0);
+    }
+    if (i == arr->block_count_b - 1)
+        return (1);
+    else
+        return (0);
+}
 
 int is_sorted_for_a(t_main *arr)
 {
@@ -248,15 +355,15 @@ void mediana_rotating_for_a(t_main *arr)
             ft_ra(arr);
             k = 0;
             j++;
-            arr->block_count_a++;
+            //arr->block_count_a++;
         }
         else
         {
-            arr->block_a[k++] = arr->stack_a[i];
+            
             ft_pb(arr);
             k = 0;
             arr->block_count_b++;
- 
+            arr->block_b[k++] = arr->stack_b[i];
             //arr->num_a--;
             //arr->num_b++;
             j++;
@@ -281,19 +388,20 @@ void mediana_rotating_for_b(t_main *arr)
     j = i;
     while (j < n)
     {
-        if (arr->stack_b[i] >= arr->mediana)
+        if (arr->stack_b[i] <= arr->mediana)
         {
             ft_rb(arr);
             k = 0;
             j++;
-            arr->block_count_b++;
+            //arr->block_count_b++;
         }
         else
         {
-            arr->block_b[k++] = arr->stack_b[i];
+            
             ft_pa(arr);
             k = 0;
             arr->block_count_a++;
+            arr->block_a[k++] = arr->stack_a[i];
             //arr->num_a--;
             //arr->num_b++;
             j++;
