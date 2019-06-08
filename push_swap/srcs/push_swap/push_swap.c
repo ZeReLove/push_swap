@@ -20,9 +20,9 @@ int main(int argc, char **argv)
     i = 0;
     if (argc > 1)
     {
+        fill_struct(&arr, argc, argv);
         if (check_all(&arr, argc, argv))
         {
-            fill_struct(&arr, argc, argv);
             main_algorithm(&arr);
             printf("-----------\n");
             while (i < arr.num)
