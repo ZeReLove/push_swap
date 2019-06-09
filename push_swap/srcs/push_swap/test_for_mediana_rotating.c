@@ -117,17 +117,18 @@ int main(void)
     //array_len = 4;
     arr.num_a = 5;
     arr.num_b = 5;
-    mediana_rotating_for_a(&arr);
+    //mediana_rotating_for_a(&arr);
     //ft_pb(&arr);
     //ft_sa(&arr);
     i = 0;
-    printf("-------------------\n");
-    while (i < arr.num_a + 3)
-        printf("%d\n", arr.stack_a[i++]);
+    sort_for_block_count(&arr);
+    //printf("-------------------\n");
+    while (++i < arr.num_a)
+        printf("%d\n", arr.stack_a[i]);
     printf("\n");
-    i = 0;
-    while (i < arr.num_b + 3)
-            printf("%d\n", arr.stack_b[i++]);
+    // i = 0;
+    // while (i < arr.num_b + 3)
+    //         printf("%d\n", arr.stack_b[i++]);
 
     return (0);
 }

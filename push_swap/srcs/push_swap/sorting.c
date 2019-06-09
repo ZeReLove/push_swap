@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:10:56 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/07 16:26:42 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/09 16:14:04 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,165 @@
 
 void main_algorithm(t_main *arr)
 {
-    int k;
+    int z;
     int i;
     int j;
-    
-    while (!(is_sorted_for_a(arr)))
-    {
-        while (arr->num_a > 3 && arr->block_count_a == 0)
-            mediana_rotating_for_a(arr);
-        if (arr->num_a <= 3 || arr->num_b <= 3)
-            sorting_three(arr);
-        if (arr->block_count_a <= 3 || arr->block_count_b <=3)
-            sort_for_block_count(arr);
-        if (!(is_sorted_for_b(arr)))
-        {
-            while (arr->num_b > 3 && arr->block_count_b == 0)
-                mediana_rotating_for_b(arr);
-        }
-        if (arr->num_a <= 3 || arr->num_b <= 3)
-            sorting_three(arr);
-        i = 0;
-        if (is_sorted_for_block_b(arr))
-        {
-            while (i++ < arr->block_count_b)
-                ft_pa(arr);
-        }
-        if ((is_sorted_for_a(arr)) && !(is_sorted_for_b(arr)) && arr->num_b > 3)
-        {
-            while (!(is_sorted_for_b(arr)))
-            {
-                if (arr->num_b > 3)
-                    mediana_rotating_for_b(arr);
-                if (arr->block_count_a <= 3 || arr->block_count_b <=3)
-                    sort_for_block_count(arr);
-                if (arr->num_a <= 3 || arr->num_b <= 3)
-                    sorting_three(arr);
-            }
-        }
+    int l;
+    int m;
+    int k;
 
-        if ((is_sorted_for_a(arr)) && arr->num_b <= 3)
+    k = 0;
+    l = 0;
+    m = 0;
+
+    if (!(is_sorted_for_a(arr)))
+    {
+        while (arr->num_a > 3)
         {
-            i = 0;
-            j = arr->num - arr->num_a;
-            while (i++ < j)
+            mediana_rotating_for_a(arr, l, m, &k);
+            l++;
+        }
+        swipe_block_count_b(arr, l);
+        while (!(is_sorted_for_a(arr)) || !(is_sorted_for_b(arr)))
+        {
+
+            if (arr->num_a <= 3 || arr->num_b <= 3)
+                sorting_three(arr);
+            l = 0;
+            if (arr->block_count_a[m] <= 3 || arr->block_count_b[l] <= 3)
+                sort_for_block_count(arr, l, m);
+            if (arr->block_count_b[l] >= 3)
             {
-                ft_rrb(arr);
-                ft_pa(arr);
+                mediana_rotating_for_b(arr, l, m, k);
+                m++;
             }
-            arr->num_b = 0;        
-        }  
+            l = 0;
+            if (is_sorted_for_block_b(arr, l))
+            {
+                i = 0;
+                j = arr->block_count_b[l];
+                while(i++ < j)
+                {
+                    ft_rrb_for_block_b(arr, l);
+                    ft_pa(arr);
+                }
+                l++;
+            }
+            if (arr->block_count_a[m] <= 3 || arr->block_count_b[l] <= 3)
+                sort_for_block_count(arr, l, m);
+            if (arr->block_count_a[m] >= 3)
+            {
+                mediana_rotating_for_a(arr, l, m, k);
+                m++;
+            }
+
+        }
+//        if ((is_sorted_for_a(arr)) && (is_sorted_for_b(arr)) && arr->num_b != 0)
+//        {
+//            i = 0;
+//            j = arr->num - arr->num_a;
+//            while (i++ < j)
+//            {
+//                ft_rrb(arr);
+//                ft_pa(arr);
+//            }
+//            arr->num_b = 0;
+//        }
     }
-    k = 0;
-    while (k < arr->num_a)
-        printf("%d\n",  arr->stack_a[k++]);
-    k = 0;
-    while (k < arr->num_b)
-        printf("%d\n",  arr->stack_b[k++]);
+    z = 0;
+    while (z < arr->num_a)
+        printf("%d\n",  arr->stack_a[z++]);
+    z = 0;
+    while (z < arr->num_b)
+        printf("%d\n",  arr->stack_b[z++]);
 }
+
+void swipe_block_count_b(t_main *arr, int l)
+{
+    int i;
+    int j;
+    int *tmp;
+
+    i = 0;
+    j = l - 1;
+    tmp = malloc(sizeof(int) * l + 1);
+    while (j != -1)
+        tmp[i++] = arr->block_count_b[j--];
+    j = 0;
+    i = 0;
+    while (j < l)
+        arr->block_count_b[i++] = tmp[j++];
+}
+
+// void main_algorithm(t_main *arr)
+// {
+//     int k;
+//     int i;
+//     int j;
+//     int l;
+//     int m;
+
+//     l = 0;
+//     m = 0;
+//     while (!(is_sorted_for_a(arr)))
+//     {
+//         while (arr->num_a > 3 && arr->block_count_a[m] == 0)
+//         {
+//             mediana_rotating_for_a(arr, l, m);
+//             l++;
+//         }
+//         if (arr->num_a <= 3 || arr->num_b <= 3)
+//             sorting_three(arr);
+//         if (arr->block_count_a[m] <= 3 || arr->block_count_b[l] <=3)
+//             sort_for_block_count(arr, l, m);
+//         if (!(is_sorted_for_b(arr)))
+//         {
+//             while (arr->num_b > 3)
+//             {
+//                 mediana_rotating_for_b(arr, l, m);
+//                 m++;
+//             }
+//         }
+//         if (arr->num_a <= 3 || arr->num_b <= 3)
+//             sorting_three(arr);
+//         i = 0;
+//         if (is_sorted_for_block_b(arr, m))
+//         {
+//             while (i++ < arr->block_count_b[l])
+//                 ft_pa(arr);
+//         }
+//         if ((is_sorted_for_a(arr)) && !(is_sorted_for_b(arr)) && arr->num_b > 3)
+//         {
+//             while (!(is_sorted_for_b(arr)))
+//             {
+//                 if (arr->num_b > 3)
+//                     mediana_rotating_for_b(arr, l, m);
+//                 if (arr->block_count_a[m] <= 3 || arr->block_count_b[l] <=3)
+//                     sort_for_block_count(arr, l, m);
+//                 if (arr->num_a <= 3 || arr->num_b <= 3)
+//                     sorting_three(arr);
+//             }
+//         }
+
+//         if ((is_sorted_for_a(arr)) && arr->num_b <= 3)
+//         {
+//             i = 0;
+//             j = arr->num - arr->num_a;
+//             while (i++ < j)
+//             {
+//                 ft_rrb(arr);
+//                 ft_pa(arr);
+//             }
+//             arr->num_b = 0;        
+//         }  
+//     }
+//     k = 0;
+//     while (k < arr->num_a)
+//         printf("%d\n",  arr->stack_a[k++]);
+//     k = 0;
+//     while (k < arr->num_b)
+//         printf("%d\n",  arr->stack_b[k++]);
+// }
 
 void sorting_three(t_main *arr)
 {
@@ -105,49 +207,49 @@ void sorting_three(t_main *arr)
 }
 
 
-void sort_for_block_count(t_main *arr)
+void sort_for_block_count(t_main *arr, int l, int m)
 {
     int i;
     int j;
     int k;
-    int l;
+    int p;
 
     i = 0;
     j = 0;
     k = 0;
-    l = 0;
-    if (arr->block_count_a <= 3 && arr->block_count_a > 1)
+    p = 0;
+    if (arr->block_count_a[m] <= 3 && arr->block_count_a[m] > 1)
     {
-        while (!(is_sorted_for_block_a(arr)))
+        while (!(is_sorted_for_block_a(arr, m)))
         {
             if (arr->block_a[i] > arr->block_a[i + 1])
                 ft_sa_for_block_a(arr);
-            if (!(is_sorted_for_block_a(arr)))
-                ft_rra_for_block_a(arr);
+            if (!(is_sorted_for_block_a(arr, m)))
+                ft_rra_for_block_a(arr, m);
             else
-                return ;
+                break ;
         }
-        while (j++ < arr->block_count_a)
-            arr->stack_a[k++] = arr->block_a[l++];
+        while (j++ < arr->block_count_a[m])
+            arr->stack_a[k++] = arr->block_a[p++];
     }
     i = 0;
     j = 0;
     k = 0;
-    l = arr->block_count_b - 1;
-    if (arr->block_count_b <= 3 && arr->block_count_b > 1)
+    p = 0;
+    if (arr->block_count_b[l] <= 3 && arr->block_count_b[l] > 1)
     {
-        while (!(is_sorted_for_block_b(arr)))
+        while (!(is_sorted_for_block_b(arr, l)))
         {
-            if (arr->block_b[i] > arr->block_b[i + 1])
+            if (arr->block_b[i] < arr->block_b[i + 1])
                 ft_sb_for_block_b(arr);
-            if (!(is_sorted_for_block_b(arr)))
-                ft_rrb_for_block_b(arr);
+            if (!(is_sorted_for_block_b(arr, l)))
+                ft_rrb_for_block_b(arr, l);
             else
-                return ;
+                break ;
         }
-        while (j++ < arr->block_count_b)
-            arr->stack_b[k++] = arr->block_b[l--];
     }
+    while (j++ < arr->block_count_b[l])
+        arr->stack_b[k++] = arr->block_b[p++];
 }
 
 void ft_sa_for_block_a(t_main *arr)
@@ -176,13 +278,13 @@ void ft_sb_for_block_b(t_main *arr)
     arr->block_b[1] = tmp;
 }
 
-void ft_rra_for_block_a(t_main *arr)
+void ft_rra_for_block_a(t_main *arr, int m)
 {
     int i;
     int last_el;
 
-    i = arr->block_count_a - 2;
-    last_el = arr->block_a[arr->block_count_a - 1];
+    i = arr->block_count_a[m] - 2;
+    last_el = arr->block_a[arr->block_count_a[m] - 1];
     while (i != -1)
     {
         arr->block_a[i + 1] = arr->block_a[i];
@@ -191,15 +293,15 @@ void ft_rra_for_block_a(t_main *arr)
     arr->block_a[0] = last_el;
 }
 
-void ft_rrb_for_block_b(t_main *arr)
+void ft_rrb_for_block_b(t_main *arr, int l)
 {
     int i;
     int last_el;
 
     i = 0;
     if (arr->block_count_b != 0) // ???
-        i = arr->block_count_b - 2;
-    last_el = arr->block_b[arr->block_count_b - 1];
+        i = arr->block_count_b[l] - 2;
+    last_el = arr->block_b[arr->block_count_b[l] - 1];
     while (i != -1)
     {
         arr->block_b[i + 1] = arr->block_b[i];
@@ -210,37 +312,37 @@ void ft_rrb_for_block_b(t_main *arr)
 
 //functions rra ans sa work correctly
 
-int is_sorted_for_block_a(t_main *arr)
+int is_sorted_for_block_a(t_main *arr, int m)
 {
     int i;
 
     i = 0;
-    while (i < arr->block_count_a - 1)
+    while (i < arr->block_count_a[m] - 1)
     {
-        if (arr->block_a[i] < arr->block_a[i + 1])
+        if (arr->block_a[i] > arr->block_a[i + 1])
             i++;
         else
             return (0);
     }
-    if (i == arr->block_count_a - 1)
+    if (i == arr->block_count_a[m] - 1)
         return (1);
     else
         return (0);
 }
 
-int is_sorted_for_block_b(t_main *arr)
+int is_sorted_for_block_b(t_main *arr, int l)
 {
     int i;
 
     i = 0;
-    while (i < arr->block_count_b - 1)
+    while (i < arr->block_count_b[l] - 1)
     {
         if (arr->block_b[i] < arr->block_b[i + 1])
             i++;
         else
             return (0);
     }
-    if (i == arr->block_count_b - 1)
+    if (i == arr->block_count_b[l] - 1)
         return (1);
     else
         return (0);
@@ -284,21 +386,21 @@ int is_sorted_for_b(t_main *arr)
 
 
 
-void mediana_rotating_for_a(t_main *arr)
+void mediana_rotating_for_a(t_main *arr, int l, int m, int *k)
 {
     int i;
     int j;
     int n;
-    int k;
+    int block_count;
 
     i = 0;
-    k = 0;
-    if (!(arr->block_count_a))
-        arr->block_count_a = arr->num_a;
-    n = arr->block_count_a;
+    block_count = 0;
+    if (!(arr->block_count_a[m]))
+        arr->block_count_a[m] = arr->num_a;
+    n = arr->block_count_a[m];
     mediana_finding_for_a(arr);
-    arr->block_count_a = 0;
-    arr->block_count_b = 0;
+    //arr->block_count_a = 0;
+    //arr->block_count_b = 0;
     j = i;
     while (j < n)
     {
@@ -312,39 +414,39 @@ void mediana_rotating_for_a(t_main *arr)
         {
             
             ft_pb(arr);
-            arr->block_count_b++;
-            arr->block_b[k] = arr->stack_b[i];
+            block_count++;
+            arr->block_b[*k] = arr->stack_b[i];
             //arr->num_a--;
             //arr->num_b++;
             j++;
-            k++;
+            (*k)++;
         }
     }
+    arr->block_count_b[l] = block_count;
 }
 
 
-void mediana_rotating_for_b(t_main *arr)
+void mediana_rotating_for_b(t_main *arr, int l, int m, int k)
 {
     int i;
     int j;
     int n;
-    int k;
+    int block_count;
 
     i = 0;
-    k = 0;
-    n = arr->block_count_b;
-    if (arr->block_count_b == 0)
+    block_count = 0;
+    n = arr->block_count_b[l];
+    if (arr->block_count_b[l] == 0)
         n = arr->num_b;
     mediana_finding_for_b(arr);
-    arr->block_count_b = 0;
-    arr->block_count_a = 0;
+    //arr->block_count_b = 0;
+    //arr->block_count_a = 0;
     j = i;
     while (j < n)
     {
         if (arr->stack_b[i] <= arr->mediana)
         {
             ft_rb(arr);
-            k = 0;
             j++;
             //arr->block_count_b++;
         }
@@ -353,13 +455,15 @@ void mediana_rotating_for_b(t_main *arr)
             
             ft_pa(arr);
             k = 0;
-            arr->block_count_a++;
+            //arr->block_count_a++;
+            block_count++;
             arr->block_a[k++] = arr->stack_a[i];
             //arr->num_a--;
             //arr->num_b++;
             j++;
         }
     }
+    arr->block_count_a[m] = block_count; 
 }
 
 // DOESN'T WORK CORRECTLY

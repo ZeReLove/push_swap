@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 17:09:22 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/07 15:32:11 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/09 13:40:57 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void fill_struct(t_main *arr, int argc, char **argv)
     arr->stack_b = malloc(sizeof(int) * argc);
     arr->block_a = malloc(sizeof(int) * argc);
     arr->block_b = malloc(sizeof(int) * argc);
+    arr->block_count_a = malloc(sizeof(int) * argc);
+    arr->block_count_b = malloc(sizeof(int) * argc);
     while (i < argc)
     {
         arr->stack_a[j] = ft_atoi_push_swap(argv[i]);
