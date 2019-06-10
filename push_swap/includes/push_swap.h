@@ -73,5 +73,6 @@ void ft_sb_for_block_b(t_main *arr);
 void ft_rra_for_block_a(t_main *arr, int m);
 void ft_rrb_for_block_b(t_main *arr, int l);
 void swipe_block_count_b(t_main *arr, int l);
+void swipe_block_count_a(t_main *arr, int m);
 
 #endif
