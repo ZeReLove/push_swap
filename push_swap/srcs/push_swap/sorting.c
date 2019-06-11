@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:10:56 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/10 15:55:32 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/11 18:06:31 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void main_algorithm(t_main *arr)
     {
         while (arr->num_a > 3)
         {
-            mediana_rotating_for_a(arr, l, m, &k);
+            mediana_rotating_for_a(arr, &l, &m);
             l++;
-            swipe_block_count_b(arr, l);
+            if (l > 1)
+                swipe_block_count_b(arr, l);
         }
         l = 0;
         while (!(is_sorted_for_a(arr)) || arr->num_b != 0)
@@ -43,9 +44,17 @@ void main_algorithm(t_main *arr)
                 sort_for_block_count(arr, l, m);
             if (arr->block_count_b[l] >= 3)
             {
-                mediana_rotating_for_b(arr, l, m, k);
+                mediana_rotating_for_b(arr, &l, &m);
                 m++;
-                swipe_block_count_a(arr, m);
+                if (m > 1)
+                    swipe_block_count_a(arr, m);
+            }
+            if (arr->block_count_a[m] > 3 && !(is_sorted_for_block_a(arr, m)) && arr->num_a > 3)
+            {
+                mediana_rotating_for_a(arr, &l, &m);
+                //l++;
+                if (l > 1)
+                    swipe_block_count_b(arr, l);
             }
             if (is_sorted_for_block_b(arr, l) || (is_sorted_for_b(arr)))
             {
@@ -60,12 +69,7 @@ void main_algorithm(t_main *arr)
             }
             if (arr->block_count_a[m] <= 3 || arr->block_count_b[l] <= 3)
                 sort_for_block_count(arr, l, m);
-            if (arr->block_count_a[m] >= 3 && !(is_sorted_for_a(arr)))
-            {
-                mediana_rotating_for_a(arr, l, m, &k);
-                l++;
-                swipe_block_count_b(arr, l);
-            }
+
 
         }
 //        if ((is_sorted_for_a(arr)) && (is_sorted_for_b(arr)) && arr->num_b != 0)
@@ -93,7 +97,7 @@ void swipe_block_count_b(t_main *arr, int l)
     int i;
     int tmp;
 
-    i = 0;
+    i =  arr->block_count_b[l - 1];
     tmp = arr->block_count_b[l - 1];
     while (i != -1)
     {
@@ -108,7 +112,7 @@ void swipe_block_count_a(t_main *arr, int m)
     int i;
     int tmp;
 
-    i = 0;
+    i = arr->block_count_a[m - 1];
     tmp = arr->block_count_a[m - 1];
     while (i != -1)
     {
@@ -377,19 +381,21 @@ int is_sorted_for_b(t_main *arr)
 
 
 
-void mediana_rotating_for_a(t_main *arr, int l, int m, int *k)
+void mediana_rotating_for_a(t_main *arr, int *l, int *m)
 {
     int i;
     int j;
     int n;
-    int block_count;
+    int block_count_for_b;
+    int block_count_for_a;
 
     i = 0;
-    block_count = 0;
-    if (!(arr->block_count_a[m]))
-        arr->block_count_a[m] = arr->num_a;
-    n = arr->block_count_a[m];
-    mediana_finding_for_a(arr);
+    block_count_for_b = 0;
+    block_count_for_a = arr->block_count_a[*m];
+    if (!(arr->block_count_a[*m]))
+        arr->block_count_a[*m] = arr->num_a;
+    n = arr->block_count_a[*m];
+    mediana_finding_for_a(arr, *m);
     //arr->block_count_a = 0;
     //arr->block_count_b = 0;
     j = i;
@@ -405,31 +411,36 @@ void mediana_rotating_for_a(t_main *arr, int l, int m, int *k)
         {
             
             ft_pb(arr);
-            block_count++;
-            arr->block_b[*k] = arr->stack_b[i];
+            block_count_for_b++;
+            block_count_for_a--;
+            //arr->block_b[*k] = arr->stack_b[i];
             //arr->num_a--;
             //arr->num_b++;
             j++;
-            (*k)++;
+            //(*k)++;
         }
     }
-    arr->block_count_b[l] = block_count;
+    arr->block_count_b[*l] = block_count_for_b;
+    if (!(block_count_for_a))
+        (*m)++;
 }
 
 
-void mediana_rotating_for_b(t_main *arr, int l, int m, int k)
+void mediana_rotating_for_b(t_main *arr, int *l, int *m)
 {
     int i;
     int j;
     int n;
-    int block_count;
+    int block_count_for_a;
+    int block_count_for_b;
 
     i = 0;
-    block_count = 0;
-    n = arr->block_count_b[l];
-    if (arr->block_count_b[l] == 0)
+    block_count_for_a = 0;
+    block_count_for_b = arr->block_count_b[*l];
+    n = arr->block_count_b[*l];
+    if (arr->block_count_b[*l] == 0)
         n = arr->num_b;
-    mediana_finding_for_b(arr);
+    mediana_finding_for_b(arr, *l);
     //arr->block_count_b = 0;
     //arr->block_count_a = 0;
     j = i;
@@ -445,16 +456,19 @@ void mediana_rotating_for_b(t_main *arr, int l, int m, int k)
         {
             
             ft_pa(arr);
-            k = 0;
+            //k = 0;
             //arr->block_count_a++;
-            block_count++;
-            arr->block_a[k++] = arr->stack_a[i];
+            block_count_for_a++;
+            block_count_for_b--;
+            //arr->block_a[k++] = arr->stack_a[i];
             //arr->num_a--;
             //arr->num_b++;
             j++;
         }
     }
-    arr->block_count_a[m] = block_count; 
+    arr->block_count_a[*m] = block_count_for_a;
+    if (!(block_count_for_b))
+        (*l)++;
 }
 
 // DOESN'T WORK CORRECTLY

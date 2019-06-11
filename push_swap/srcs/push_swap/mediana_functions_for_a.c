@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:12:36 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/06 13:16:44 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/11 18:05:08 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void bubble_sort(t_main *arr)
 
     i = 0;
     j = 1;
-    while (j != arr->num_a)
+    while (j != arr->n)
     {
         if (arr->array[i] > arr->array[j])
         {
@@ -42,16 +42,20 @@ void bubble_sort(t_main *arr)
         return ;
 }
 
-void filling_array(t_main *arr)
+void filling_array(t_main *arr, int m)
 {
     int i;
     int j;
 
     i = 0;
     j = 0;
-    if (!(arr->array = malloc(sizeof(int) * (arr->num_a + 1))))
+    if (!(arr->block_count_a[m]))
+        arr->n = arr->num_b;
+    else
+        arr->n = arr->block_count_a[m];
+    if (!(arr->array = malloc(sizeof(int) * (arr->n + 1))))
         return ;
-    while(i < arr->num_a)
+    while(i < arr->n)
     {
         arr->array[i] = arr->stack_a[j];
         i++;
@@ -64,28 +68,28 @@ int is_bubble_sorted(t_main *arr)
     int i;
 
     i = 0;
-    while (i < arr->num_a - 1)
+    while (i < arr->n - 1)
     {
         if (arr->array[i] < arr->array[i + 1])
             i++;
         else
             return (0);
     }
-    if (i == arr->num_a - 1)
+    if (i == arr->n - 1)
         return (1);
     else
         return (0);
 }
 
-void mediana_finding_for_a(t_main *arr)
+void mediana_finding_for_a(t_main *arr, int m)
 {
     int i;
     int mediana;
 
     i = 0;
-    filling_array(arr);
+    filling_array(arr, m);
     bubble_sort(arr);
-    i = arr->num_a / 2;
+    i = arr->n / 2;
     mediana = arr->array[i];
     arr->mediana = mediana;    
 }

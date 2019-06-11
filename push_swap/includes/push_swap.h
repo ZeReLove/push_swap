@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:44:05 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/09 14:50:52 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/11 18:05:22 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_main
     int mediana;
     int *block_count_a;
     int *block_count_b;
+    int n;
 }              t_main;
 
 int check_symbols(int argc, char **argv);
@@ -54,15 +55,15 @@ void main_algorithm(t_main *arr);
 void sorting_three(t_main *arr);
 int is_sorted_for_a(t_main *arr);
 int is_sorted_for_b(t_main *arr);
-void mediana_rotating_for_a(t_main *arr, int l, int m, int *k);
-void mediana_rotating_for_b(t_main *arr, int l, int m, int k);
+void mediana_rotating_for_a(t_main *arr, int *l, int *m);
+void mediana_rotating_for_b(t_main *arr, int *l, int *m);
 void bubble_sort(t_main *arr);
 int is_bubble_sorted(t_main *arr);
-void mediana_finding_for_a(t_main *arr);
-void filling_array(t_main *arr);
-void mediana_finding_for_b(t_main *arr);
+void mediana_finding_for_a(t_main *arr, int l);
+void filling_array(t_main *arr, int m);
+void mediana_finding_for_b(t_main *arr, int l);
 int is_bubble_sorted_for_b(t_main *arr);
-void filling_array_for_b(t_main *arr);
+void filling_array_for_b(t_main *arr, int l);
 void bubble_sort_for_b(t_main *arr);
 void sorting_three(t_main *arr);
 void sort_for_block_count(t_main *arr, int l, int m);
