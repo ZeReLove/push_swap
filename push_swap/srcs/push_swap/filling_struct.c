@@ -58,6 +58,12 @@ void fill_struct(t_main *arr, int argc, char **argv)
         i++;
         j++;
     }
+    i = 0;
+    while (i++ < argc)
+    {
+        arr->block_count_a[i] = 0;
+        arr->block_count_b[i] = 0;
+    }
     arr->num_b = 0;
     arr->num_a = argc - 1;
     arr->num = arr->num_a;

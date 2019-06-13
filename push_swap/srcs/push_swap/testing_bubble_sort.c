@@ -1,56 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef struct s_main
 {
     int *stack_a;
     int *stack_b;
     int num_a;
     int num_b;
+    int *block_a;
+    int *block_b;
     int num;
+    int *array;
+    int mediana;
+    int *block_count_a;
+    int *block_count_b;
+    int n;
 }              t_main;
 
 // Old version finding mediana_for_a
 
-void mediana_rotating_for_a(t_main *arr)
-{
-    int i;
-    int sum;
-    int mediana;
-
-    i = 0;
-    sum = 0;
-    mediana = 0;
-    while (i < arr->num_a)
-    {
-        sum += arr->stack_a[i];
-        i++;
-    }
-    mediana = sum / arr->num_a;
-    i = 0;
-    if (arr->stack_a[i] >= mediana)
-        ft_ra(arr);
-    else
-        ft_pa(arr);
-}
-
-
-int is_bubble_sorted(int *array, int array_len)
+int is_bubble_sorted(t_main *arr)
 {
     int i;
 
     i = 0;
-    while (i < array_len - 1)
+    while (i < arr->n - 1)
     {
-        if (array[i] < array[i + 1])
+        if (arr->array[i] < arr->array[i + 1])
             i++;
         else
             return (0);
     }
-    if (i == array_len - 1)
+    if (i == arr->n - 1)
         return (1);
     else
         return (0);
 }
 
-int *bubble_sort(int *array, int array_len)
+void bubble_sort(t_main *arr)
 {
     int i;
     int j;
@@ -58,13 +45,13 @@ int *bubble_sort(int *array, int array_len)
 
     i = 0;
     j = 1;
-    while (j != array_len)
+    while (j != arr->n)
     {
-        if (array[i] > array[j])
+        if (arr->array[i] > arr->array[j])
         {
-            tmp = array[j];
-            array[j] = array[i];
-            array[i] = tmp;
+            tmp = arr->array[j];
+            arr->array[j] = arr->array[i];
+            arr->array[i] = tmp;
             i++;
             j++;
         }
@@ -74,31 +61,69 @@ int *bubble_sort(int *array, int array_len)
             j++;
         }
     }
-    if (is_bubble_sorted(array, array_len))
-            return (array);
+    if (!(is_bubble_sorted(arr)))
+        bubble_sort(arr);
     else
-        bubble_sort(array, array_len);
-    return (array);
+        return ;
+}
+
+void filling_array(t_main *arr, int m)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0;
+    if (!(arr->block_count_a[m]))
+        arr->n = arr->num_b;
+    else
+        arr->n = arr->block_count_a[m];
+    if (!(arr->array = malloc(sizeof(int) * (arr->n + 1))))
+        return ;
+    while(i < arr->n)
+    {
+        arr->array[i] = arr->stack_a[j];
+        i++;
+        j++;
+    }
+}
+
+
+
+void mediana_finding_for_a(t_main *arr, int m)
+{
+    int i;
+    int mediana;
+
+    i = 0;
+    filling_array(arr, m);
+    bubble_sort(arr);
+    i = arr->n / 2;
+    mediana = arr->array[i];
+    arr->mediana = mediana;
 }
 
 int main(void)
 {
+    t_main arr;
+    int m;
     int i;
-    int *array;
     int array_len;
 
     i = 0;
-    array = malloc(sizeof(int) * 5);
-    array[0] = 5;
-    array[1] = 133;
-    array[2] = 9;
-    array[3] = 6;
-    array[4] = 4;
+    m = 0;
+    arr.stack_a = malloc(sizeof(int) * 5);
+    arr.array = malloc(sizeof(int) * 5);
+    arr.stack_a[0] = 5;
+    arr.stack_a[1] = 133;
+    arr.stack_a[2] = 9;
+    arr.stack_a[3] = 6;
+    arr.stack_a[4] = 4;
     array_len = 5;
-    bubble_sort(array, array_len);
+    mediana_finding_for_a(&arr, m);
     while (i < array_len)
         {
-            printf("%d\n", array[i]);
+            printf("%d\n", arr.stack_a[i]);
             i++;
         }
     return (0);

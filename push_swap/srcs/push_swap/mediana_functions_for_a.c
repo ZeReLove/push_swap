@@ -50,7 +50,7 @@ void filling_array(t_main *arr, int m)
     i = 0;
     j = 0;
     if (!(arr->block_count_a[m]))
-        arr->n = arr->num_b;
+        arr->n = arr->num_a;
     else
         arr->n = arr->block_count_a[m];
     if (!(arr->array = malloc(sizeof(int) * (arr->n + 1))))
@@ -86,7 +86,6 @@ void mediana_finding_for_a(t_main *arr, int m)
     int i;
     int mediana;
 
-    i = 0;
     filling_array(arr, m);
     bubble_sort(arr);
     i = arr->n / 2;
