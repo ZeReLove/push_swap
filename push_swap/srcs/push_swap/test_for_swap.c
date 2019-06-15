@@ -21,18 +21,21 @@ typedef struct s_main
 void swipe_block_count_b(t_main *arr, int l)
 {
     int i;
-    int j;
-    int *tmp;
-    
+    int tmp;
+
+    i =  arr->block_count_b[l - 1];
+    tmp = arr->block_count_b[l - 1];
+    while (i != -1)
+    {
+        arr->block_count_b[i + 1] = arr->block_count_b[i];
+        i--;
+    }
+    arr->block_count_b[0] = tmp;
     i = 0;
-    j = l - 1;
-    tmp = malloc(sizeof(int) * l + 1);
-    while (j != -1)
-        tmp[i++] = arr->block_count_b[j--];
-    j = 0;
-    i = 0;
-    while (j < l)
-        arr->block_count_b[i++] = tmp[j++];
+    while (i < l)
+        i++;
+    while (i < l + 1)
+        arr->block_count_b[i++] = 0;
 }
 
 int main(void)
@@ -42,16 +45,18 @@ int main(void)
     t_main arr;
 
     i = 0;
-    l = 5;
-    arr.block_count_b = malloc(sizeof(int) * 5);
+    l = 7;
+    arr.block_count_b = malloc(sizeof(int) * 7);
     arr.block_count_b[0] = 1;
     arr.block_count_b[1] = 2;
     arr.block_count_b[2] = 3;
     arr.block_count_b[3] = 4;
     arr.block_count_b[4] = 5;
+    arr.block_count_b[5] = 6;
+    arr.block_count_b[6] = 7;
     swipe_block_count_b(&arr, l);
     //printf("-------------------\n");
-    while (i < 5)
+    while (i < 7)
         printf("%d\n", arr.block_count_b[i++]);
     printf("\n");
     // i = 0;

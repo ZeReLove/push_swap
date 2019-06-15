@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 18:29:49 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/05/26 19:20:56 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/15 16:44:15 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void ft_ra(t_main *arr)
         i++;
     }
     arr->stack_a[i] = first_el;
+    printf("ra\n");
 }
 
 void ft_rb(t_main *arr)
@@ -40,6 +41,7 @@ void ft_rb(t_main *arr)
         i++;
     }
     arr->stack_b[i] = first_el;
+    printf("rb\n");
 }
 
 void ft_rr(t_main *arr)

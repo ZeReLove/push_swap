@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:10:56 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/13 17:42:36 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/15 17:32:02 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 void main_algorithm(t_main *arr)
 {
-    int z;
     int i;
     int j;
     int l;
     int m;
-    int k;
 
-    k = 0;
     l = 0;
     m = 0;
 
@@ -35,7 +32,7 @@ void main_algorithm(t_main *arr)
                 swipe_block_count_b(arr, l);
         }
         l = 0;
-        while (!(is_sorted_for_a(arr)) || arr->num_b != 0)
+        while (!(is_sorted_for_a(arr)) || arr->num_b != 0) 
         {
 
             if (arr->num_a <= 3 || arr->num_b <= 3)
@@ -43,58 +40,31 @@ void main_algorithm(t_main *arr)
             if (arr->block_count_a[m] <= 3 || arr->block_count_b[l] <= 3)
                 sort_for_block_count(arr, l, m);
             if (arr->block_count_b[l] > 3)
-            {
                 mediana_rotating_for_b(arr, &l, &m);
-                //m++;
-                //if (m > 1)
-                    //swipe_block_count_a(arr, m);
-            }
             if (arr->block_count_a[m] > 3 && !(is_sorted_for_block_a(arr, m)) && arr->num_a > 3)
-            {
                 mediana_rotating_for_a(arr, &l, &m);
-                //l++;
-                //if (l > 1)
-                    //swipe_block_count_b(arr, l);
+            if (arr->block_count_b[l] > 3 && arr->block_count_a[m] > 3) 
+            {
+                while (arr->block_count_a[m] > 3)
+                    mediana_rotating_for_a(arr, &l, &m);
             }
             if (arr->block_count_a[m] <= 3 || arr->block_count_b[l] <= 3)
                 sort_for_block_count(arr, l, m);
-            if (is_sorted_for_block_b(arr, l) || (is_sorted_for_b(arr)))
+            if (is_sorted_for_block_b(arr, l) || (is_sorted_for_b(arr))) 
             {
                 i = 0;
                 if (arr->num_b <= 3)
                     j = arr->num_b;
                 else
                     j = arr->block_count_b[l];
-                while(i++ < j)
-                {
+                while (i++ < j) {
                     ft_pa(arr);
                     arr->block_count_b[l]--;
                 }
                 l++;
             }
-            //if (arr->block_count_a[m] <= 3 || arr->block_count_b[l] <= 3)
-                //sort_for_block_count(arr, l, m);
-
-
         }
-//        if ((is_sorted_for_a(arr)) && (is_sorted_for_b(arr)) && arr->num_b != 0)
-//        {
-//            i = 0;
-//            j = arr->num - arr->num_a;
-//            while (i++ < j)
-//            {
-//                ft_rrb(arr);
-//                ft_pa(arr);
-//            }
-//            arr->num_b = 0;
-//        }
     }
-    z = 0;
-    while (z < arr->num_a)
-        printf("%d\n",  arr->stack_a[z++]);
-    z = 0;
-    while (z < arr->num_b)
-        printf("%d\n",  arr->stack_b[z++]);
 }
 
 void swipe_block_count_b(t_main *arr, int l)
@@ -102,7 +72,7 @@ void swipe_block_count_b(t_main *arr, int l)
     int i;
     int tmp;
 
-    i =  arr->block_count_b[l - 1];
+    i =  l - 1;
     tmp = arr->block_count_b[l - 1];
     while (i != -1)
     {
@@ -432,6 +402,7 @@ void mediana_rotating_for_a(t_main *arr, int *l, int *m)
         if (arr->stack_a[i] >= arr->mediana)
         {
             ft_ra(arr);
+            //i++;
             j++;
             count_for_ra++;
             //arr->block_count_a++;
@@ -491,6 +462,7 @@ void mediana_rotating_for_b(t_main *arr, int *l, int *m)
         {
             ft_rb(arr);
             j++;
+            //i++;
             count_for_rb++;
             //arr->block_count_b++;
         }

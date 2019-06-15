@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:26:19 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/07 14:44:17 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/15 16:43:59 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void ft_sa(t_main *arr)
     tmp = i;
     arr->stack_a[0] = j;
     arr->stack_a[1] = tmp;
+    printf("sa\n");
 }
 
 void ft_sb(t_main *arr)
@@ -36,6 +37,7 @@ void ft_sb(t_main *arr)
     tmp = i;
     arr->stack_b[0] = j;
     arr->stack_b[1] = tmp;
+    printf("sb\n");
 }
 
 void ft_ss(t_main *arr)
@@ -65,6 +67,7 @@ void ft_pa(t_main *arr)
         i++;
     }
     arr->num_b--;
+    printf("pa\n");
 }
 
 void ft_pb(t_main *arr)
@@ -88,6 +91,7 @@ void ft_pb(t_main *arr)
         i++;
     }
     arr->num_a--;
+    printf("pb\n");
 }
 
 // CHANGED PB, NEDEED TO CHANGE PA  
