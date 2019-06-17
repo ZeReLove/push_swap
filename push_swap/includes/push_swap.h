@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:44:05 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/15 18:11:29 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/17 16:26:37 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,16 @@ typedef struct s_main
     int *block_count_a;
     int *block_count_b;
     int n;
+    int len;
+    int ret;
 }              t_main;
 
 int check_symbols(int argc, char **argv);
 int check_duplicates(t_main *arr);
-int check_all(t_main *arr, int argc, char **argv);
+int check_all(t_main *arr, int argc, char **argv, char **str);
 int ft_atoi_push_swap(char *str);
-void fill_struct(t_main *arr, int argc, char **argv);
-void fill_struct_for_brakets(t_main *arr, char **argv);
+void fill_struct(t_main *arr, int *argc, char **argv);
+char **fill_struct_for_brakets(t_main *arr, char **argv);
 void fill_struct_without_brakets(t_main *arr, int argc, char **argv);
 void ft_sa(t_main *arr);
 void ft_sb(t_main *arr);

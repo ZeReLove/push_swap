@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 17:09:22 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/15 18:31:44 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/17 16:26:28 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,61 +39,58 @@ int ft_atoi_push_swap(char *str)
     return (nbr * sign);
 }
 
-void fill_struct(t_main *arr, int argc, char **argv)
+void fill_struct(t_main *arr, int *argc, char **argv)
 {
-    int i;
-
-    arr->stack_a = malloc(sizeof(int) * argc);
-    arr->stack_b = malloc(sizeof(int) * argc);
-    arr->block_a = malloc(sizeof(int) * argc);
-    arr->block_b = malloc(sizeof(int) * argc);
-    arr->block_count_a = malloc(sizeof(int) * argc);
-    arr->block_count_b = malloc(sizeof(int) * argc);
-    if (argc == 2)
-        fill_struct_for_brakets(arr, argv);
-    else
-        fill_struct_without_brakets(arr, argc, argv);
-    i = 0;
-    while (i++ < argc)
+    arr->stack_a = malloc(sizeof(int) * *argc);
+    arr->stack_b = malloc(sizeof(int) * *argc);
+    arr->block_a = malloc(sizeof(int) * *argc);
+    arr->block_b = malloc(sizeof(int) * *argc);
+    arr->block_count_a = malloc(sizeof(int) * *argc);
+    arr->block_count_b = malloc(sizeof(int) * *argc);
+    if (*argc == 2)
     {
-        arr->block_count_a[i] = 0;
-        arr->block_count_b[i] = 0;
+        argv = fill_struct_for_brakets(arr, argv);
+        *argc = arr->len + 1;
+        arr->ret = 1;
     }
+    else
+        fill_struct_without_brakets(arr, *argc, argv);
     arr->num_b = 0;
     arr->num = arr->num_a;
 }
 
-void fill_struct_for_brakets(t_main *arr, char **argv)
+char **fill_struct_for_brakets(t_main *arr, char **argv)
 {
     int i;
     int j;
     char **s;
     char **str;
-    int len;
-    
-    i = 0;
+
+    i = -1;
     j = 0;
-    len = 0;
     s = ft_strsplit(argv[1], ' ');
-    while (s[len])
-        len++;
-    str = (char **)malloc(sizeof(char *) * (len + 2));
-    str[i] = ft_strdup(*s);
-    i = len - 1;
-    while (i != -1)
-    {
-        str[i + 1] = str[i];
-        i--;
-    }
-    str[len + 1] = NULL;
-    str[0] = argv[0];
-    while (i < len)
+    while (s[arr->len])
+        arr->len++;
+    str = (char **)malloc(sizeof(char *) * (arr->len + 2));
+    str[0] = ft_strdup(argv[0]);
+    while (s[++i])
+        str[i + 1] = ft_strdup(s[i]);
+    str[arr->len + 1] = NULL;
+    i = 0;
+    while (i < arr->len)
     {
         arr->stack_a[j] = ft_atoi_push_swap(s[i]);
         i++;
         j++;
     }
-    arr->num_a = len;
+    i = 0;
+    while (i++ < arr->len)
+    {
+        arr->block_count_a[i] = 0;
+        arr->block_count_b[i] = 0;
+    }
+    arr->num_a = arr->len;
+    return (str);
 }
 
 void fill_struct_without_brakets(t_main *arr, int argc, char **argv)
@@ -110,6 +107,11 @@ void fill_struct_without_brakets(t_main *arr, int argc, char **argv)
         j++;
     }
     arr->num_a = argc - 1;
+    while (i++ < argc)
+    {
+        arr->block_count_a[i] = 0;
+        arr->block_count_b[i] = 0;
+    }
 }
 
 //// To add the case when memory is not allocated

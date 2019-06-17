@@ -6,7 +6,7 @@
 /*   By: mrolfe <mrolfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:05:31 by mrolfe            #+#    #+#             */
-/*   Updated: 2019/06/07 14:47:50 by mrolfe           ###   ########.fr       */
+/*   Updated: 2019/06/17 16:24:43 by mrolfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,21 @@ int check_duplicates(t_main *arr)
         return (0);
 }
 
-int check_all(t_main *arr, int argc, char **argv)
+int check_all(t_main *arr, int argc, char **argv, char **str)
 {
+    int res1;
+    int res2;
     arr->num_a = argc - 1;
-    if (check_symbols(argc, argv) && check_duplicates(arr))
+    if (arr->ret == 1)
+        res1 = check_symbols(arr->len, str);
+    else
+        res1 = check_symbols(argc, argv);
+    res2 = check_duplicates(arr);
+    if (res1 && res2)
         return (1);
     else
         return (0);
 }
+
 
 // Check functions works correctly

@@ -16,12 +16,14 @@ int main(int argc, char **argv)
 {
     t_main arr;
     int i;
-
+    char **str;
+    str = fill_struct_for_brakets(&arr, argv);
     i = 0;
+
     if (argc > 1)
     {
-        fill_struct(&arr, argc, argv);
-        if (check_all(&arr, argc, argv))
+        fill_struct(&arr, &argc, argv);
+        if (check_all(&arr, argc, argv, str))
         {
             main_algorithm(&arr);
             printf("-----------\n");
