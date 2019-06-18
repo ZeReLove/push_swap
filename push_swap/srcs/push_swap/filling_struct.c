@@ -49,6 +49,7 @@ void fill_struct(t_main *arr, int *argc, char **argv)
     arr->block_count_b = malloc(sizeof(int) * *argc);
     if (*argc == 2)
     {
+
         argv = fill_struct_for_brakets(arr, argv);
         *argc = arr->len + 1;
         arr->ret = 1;
@@ -64,18 +65,19 @@ char **fill_struct_for_brakets(t_main *arr, char **argv)
     int i;
     int j;
     char **s;
-    char **str;
+    //char **str;
 
-    i = -1;
+    i = 0;
     j = 0;
     s = ft_strsplit(argv[1], ' ');
     while (s[arr->len])
         arr->len++;
-    str = (char **)malloc(sizeof(char *) * (arr->len + 2));
-    str[0] = ft_strdup(argv[0]);
+    arr->str = (char **)malloc(sizeof(char *) * (arr->len + 2));
+    arr->str[0] = ft_strdup(argv[0]);
+    i = -1;
     while (s[++i])
-        str[i + 1] = ft_strdup(s[i]);
-    str[arr->len + 1] = NULL;
+        arr->str[i + 1] = ft_strdup(s[i]);
+    arr->str[arr->len + 1] = NULL;
     i = 0;
     while (i < arr->len)
     {
@@ -89,8 +91,12 @@ char **fill_struct_for_brakets(t_main *arr, char **argv)
         arr->block_count_a[i] = 0;
         arr->block_count_b[i] = 0;
     }
+    i = -1;
+    while (s[++i])
+        free(s[i]);
+    free((char **)s);
     arr->num_a = arr->len;
-    return (str);
+    return (arr->str);
 }
 
 void fill_struct_without_brakets(t_main *arr, int argc, char **argv)

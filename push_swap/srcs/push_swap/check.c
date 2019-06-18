@@ -40,10 +40,8 @@ int check_symbols(int argc, char **argv)
 int check_duplicates(t_main *arr)
 {
     int i;
-    int j;
 
     i = 0;
-    j = 1;
     while(i < arr->num_a)
     {
         if (arr->stack_a[i] == arr->stack_a[i + 1])
@@ -57,13 +55,13 @@ int check_duplicates(t_main *arr)
         return (0);
 }
 
-int check_all(t_main *arr, int argc, char **argv, char **str)
+int check_all(t_main *arr, int argc, char **argv)
 {
     int res1;
     int res2;
     arr->num_a = argc - 1;
     if (arr->ret == 1)
-        res1 = check_symbols(arr->len, str);
+        res1 = check_symbols(arr->len, arr->str);
     else
         res1 = check_symbols(argc, argv);
     res2 = check_duplicates(arr);

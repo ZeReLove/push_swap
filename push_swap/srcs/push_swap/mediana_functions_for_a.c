@@ -90,6 +90,8 @@ void mediana_finding_for_a(t_main *arr, int m)
     bubble_sort(arr);
     i = arr->n / 2;
     mediana = arr->array[i];
-    arr->mediana = mediana;    
+    arr->mediana = mediana;
+    free(arr->array);
 }
+
 

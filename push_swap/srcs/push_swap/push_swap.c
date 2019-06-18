@@ -16,21 +16,29 @@ int main(int argc, char **argv)
 {
     t_main arr;
     int i;
-    char **str;
-    str = fill_struct_for_brakets(&arr, argv);
-    i = 0;
+    //char **str;
 
     if (argc > 1)
     {
         fill_struct(&arr, &argc, argv);
-        if (check_all(&arr, argc, argv, str))
+        //str = fill_struct_for_brakets(&arr, argv);
+        if (check_all(&arr, argc, argv))
         {
             main_algorithm(&arr);
             printf("-----------\n");
+            i = 0;
             while (i < arr.num)
                 printf("%d\n",  arr.stack_a[i++]);
+            i = -1;
+            while (arr.str[++i])
+                free((char *)arr.str[i]);
+            free((char **)arr.str);
             free(arr.stack_a);
             free(arr.stack_b);
+            free(arr.block_a);
+            free(arr.block_b);
+            free(arr.block_count_a);
+            free(arr.block_count_b);
         }   
     }
     return (0);
