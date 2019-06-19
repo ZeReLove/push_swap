@@ -138,12 +138,99 @@ void ft_rrb(t_main *arr)
     arr->stack_b[0] = last_el;
 }
 
-void sort_for_block_count(t_main *arr, int l)
+void ft_rra(t_main *arr)
+{
+    int i;
+    int last_el;
+
+    i = arr->num_a - 2;
+    last_el = arr->stack_a[arr->num_a - 1];
+    while (i != -1)
+    {
+        arr->stack_a[i + 1] = arr->stack_a[i];
+        i--;
+    }
+    arr->stack_a[0] = last_el;
+    printf("rra\n");
+}
+
+void ft_ra(t_main *arr)
+{
+    int i;
+    int first_el;
+
+    i = 0;
+    first_el = arr->stack_a[0];
+    while (i + 1 < arr->num_a)
+    {
+        arr->stack_a[i] = arr->stack_a[i + 1];
+        i++;
+    }
+    arr->stack_a[i] = first_el;
+    printf("ra\n");
+}
+int is_sorted_for_block_a(t_main *arr, int m)
 {
     int i;
 
     i = 0;
+    while (i < arr->block_count_a[m] - 1)
+    {
+        if (arr->stack_a[i] < arr->stack_a[i + 1])
+            i++;
+        else
+            return (0);
+    }
+    if (i == arr->block_count_a[m] - 1)
+        return (1);
+    else
+        return (0);
+}
 
+void sort_for_block_count(t_main *arr, int l, int m)
+{
+    int i;
+
+    i = 0;
+    if (arr->block_count_a[m] == 3 && !(is_sorted_for_block_a(arr, m)))
+    {
+        if (arr->stack_a[i] < arr->stack_a[i + 1] && arr->stack_a[i] < arr->stack_a[i + 2] && arr->stack_a[i + 1] > arr->stack_a[i + 2])
+        {
+            ft_pb(arr);
+            ft_sa(arr);
+            ft_pa(arr);
+        }
+        if (arr->stack_a[i] > arr->stack_a[i + 1] && arr->stack_a[i] > arr->stack_a[i + 2] && arr->stack_a[i + 1] > arr->stack_a[i + 2])
+        {
+            ft_pb(arr);
+            ft_pb(arr);
+            ft_ra(arr);
+            ft_sb(arr);
+            ft_pa(arr);
+            ft_pa(arr);
+            ft_rra(arr);
+        }
+        if (arr->stack_a[i] > arr->stack_a[i + 1] && arr->stack_a[i] > arr->stack_a[i + 2] && arr->stack_a[i + 1] < arr->stack_a[i + 2])
+        {
+            ft_sa(arr);
+            ft_ra(arr);
+            ft_sa(arr);
+            ft_rra(arr);
+        }
+        if (arr->stack_a[i] > arr->stack_a[i + 1] && arr->stack_a[i] < arr->stack_a[i + 2] && arr->stack_a[i + 1] < arr->stack_a[i + 2])
+            ft_sa(arr);
+        if (arr->stack_a[i] < arr->stack_a[i + 1] && arr->stack_a[i] > arr->stack_a[i + 2] && arr->stack_a[i + 1] > arr->stack_a[i + 2])
+        {
+            ft_pb(arr);
+            ft_sa(arr);
+            ft_ra(arr);
+            ft_pa(arr);
+            ft_rra(arr);
+        }
+    }
+    if (arr->block_count_a[m] == 2 && !(is_sorted_for_block_a(arr, m)))
+        ft_sa(arr);
+    i = 0;
     if (arr->block_count_b[l] == 3 && !(is_sorted_for_block_b(arr, l)))
     {
         if (arr->stack_b[i] > arr->stack_b[i + 1] && arr->stack_b[i] > arr->stack_b[i + 2] && arr->stack_b[i + 1] < arr->stack_b[i + 2])
@@ -164,13 +251,10 @@ void sort_for_block_count(t_main *arr, int l)
         }
         if (arr->stack_b[i] < arr->stack_b[i + 1] && arr->stack_b[i] < arr->stack_b[i + 2] && arr->stack_b[i + 1] > arr->stack_b[i + 2])
         {
-            ft_pa(arr);
-            ft_pa(arr);
+            ft_sb(arr);
             ft_rb(arr);
-            ft_sa(arr);
-            ft_pb(arr);
+            ft_sb(arr);
             ft_rrb(arr);
-            ft_pb(arr);
         }
         if (arr->stack_b[i] < arr->stack_b[i + 1] && arr->stack_b[i] > arr->stack_b[i + 2] && arr->stack_b[i + 1] > arr->stack_b[i + 2])
             ft_sb(arr);
@@ -180,11 +264,11 @@ void sort_for_block_count(t_main *arr, int l)
             ft_sb(arr);
             ft_pb(arr);
             ft_sb(arr);
-
         }
     }
     if (arr->block_count_b[l] == 2 && !(is_sorted_for_block_b(arr, l)))
         ft_sb(arr);
+
 }
 
 
@@ -197,26 +281,28 @@ int main(void)
 
     // arr.mediana = 48;
     int l = 0;
+    int m = 0;
     arr.stack_b = malloc(sizeof(int) * 5);
     arr.stack_a = malloc(sizeof(int) * 5);
-    arr.block_b = malloc(sizeof(int) * 5);
-    arr.stack_a[0] = 452;
-    arr.stack_a[1] = 9;
-    arr.stack_a[2] = 48;
+    arr.block_count_a = malloc(sizeof(int) * 5);
+    //arr.block_b = malloc(sizeof(int) * 5);
+    arr.stack_b[0] = 48;
+    arr.stack_b[1] = 452;
+    arr.stack_b[2] = 9;
     // arr.stack_a[3] = 12;
     // arr.stack_a[4] = 234;
-    arr.stack_b[0] = 3;
-    arr.stack_b[1] = 6;
+    //arr.stack_b[0] = 3;
+    //arr.stack_b[1] = 6;
     //arr.stack_b[2] = 5;
-    arr.num_a = 3;
-    arr.num_b = 2;
+    arr.num_b = 3;
+   // arr.num_b = 2;
     // arr.stack_b[3] = 0;
     // arr.stack_b[4] = 0;
     // arr.block_a = malloc(sizeof(int) * 5);
     // arr.block_b = malloc(sizeof(int) * 5);
     //array_len = 4;
-    //arr.block_count_a[l] = 3;
-    arr.block_count_b[l] = 2;
+    arr.block_count_b[l] = 3;
+    //arr.block_count_b[l] = 2;
     // arr.block_a[0] = -2;
     // arr.block_a[1] = 1;
     // arr.block_a[2] = 3;
@@ -226,7 +312,7 @@ int main(void)
     //ft_pb(&arr);
     //ft_sa(&arr);
     i = 0;
-    sort_for_block_count(&arr, l);
+    sort_for_block_count(&arr, l, m);
     //printf("-------------------\n");
     while (i < arr.block_count_b[l])
         printf("%d\n", arr.stack_b[i++]);

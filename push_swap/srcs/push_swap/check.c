@@ -55,13 +55,13 @@ int check_duplicates(t_main *arr)
         return (0);
 }
 
-int check_all(t_main *arr, int argc, char **argv)
+int check_all(t_main *arr, int argc, char **argv, char **str)
 {
     int res1;
     int res2;
     arr->num_a = argc - 1;
     if (arr->ret == 1)
-        res1 = check_symbols(arr->len, arr->str);
+        res1 = check_symbols(arr->len, str);
     else
         res1 = check_symbols(argc, argv);
     res2 = check_duplicates(arr);

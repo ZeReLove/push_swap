@@ -16,23 +16,26 @@ int main(int argc, char **argv)
 {
     t_main arr;
     int i;
-    //char **str;
+    char **str;
 
     if (argc > 1)
     {
         fill_struct(&arr, &argc, argv);
-        //str = fill_struct_for_brakets(&arr, argv);
-        if (check_all(&arr, argc, argv))
+        str = arr.res_str;
+        if (check_all(&arr, argc, argv, str))
         {
             main_algorithm(&arr);
-            printf("-----------\n");
-            i = 0;
-            while (i < arr.num)
-                printf("%d\n",  arr.stack_a[i++]);
+            //printf("-----------\n");
+            //i = 0;
+            //while (i < arr.num)
+                //printf("%d\n",  arr.stack_a[i++]);
             i = -1;
-            while (arr.str[++i])
-                free((char *)arr.str[i]);
-            free((char **)arr.str);
+//            if (arr.ret)
+//            {
+//                while (str[++i])
+//                    free((char *)str[i]);
+//                free((char **)str);
+//            }
             free(arr.stack_a);
             free(arr.stack_b);
             free(arr.block_a);

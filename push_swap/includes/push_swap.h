@@ -34,15 +34,15 @@ typedef struct s_main
     int n;
     int len;
     int ret;
-    char **str;
+    char **res_str;
 }              t_main;
 
 int check_symbols(int argc, char **argv);
 int check_duplicates(t_main *arr);
-int check_all(t_main *arr, int argc, char **argv);
+int check_all(t_main *arr, int argc, char **argv, char **str);
 int ft_atoi_push_swap(char *str);
 void fill_struct(t_main *arr, int *argc, char **argv);
-char **fill_struct_for_brakets(t_main *arr, char **argv);
+void fill_struct_for_brakets(t_main *arr, int *argc, char **argv);
 void fill_struct_without_brakets(t_main *arr, int argc, char **argv);
 void ft_sa(t_main *arr);
 void ft_sb(t_main *arr);
