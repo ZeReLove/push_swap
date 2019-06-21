@@ -60,8 +60,8 @@ void main_algorithm(t_main *arr);
 void sorting_three(t_main *arr);
 int is_sorted_for_a(t_main *arr);
 int is_sorted_for_b(t_main *arr);
-void mediana_rotating_for_a(t_main *arr, int *l, int *m);
-void mediana_rotating_for_b(t_main *arr, int *l, int *m);
+void mediana_rotating_for_a(t_main *arr, int m, int *z);
+void mediana_rotating_for_b(t_main *arr, int l, int *y);
 void bubble_sort(t_main *arr);
 int is_bubble_sorted(t_main *arr);
 void mediana_finding_for_a(t_main *arr, int l);
@@ -80,5 +80,7 @@ void ft_rra_for_block_a(t_main *arr, int m);
 void ft_rrb_for_block_b(t_main *arr, int l);
 void swipe_block_count_b(t_main *arr, int l);
 void swipe_block_count_a(t_main *arr, int m);
+void move_block_count_b(t_main *arr, int y);
+void move_block_count_a(t_main *arr, int z);
 
 #endif

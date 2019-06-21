@@ -40,15 +40,23 @@ int check_symbols(int argc, char **argv)
 int check_duplicates(t_main *arr)
 {
     int i;
+    int j;
 
+    j = 0;
     i = 0;
-    while(i < arr->num_a)
+    while (j < arr->num_a - 1)
     {
-        if (arr->stack_a[i] == arr->stack_a[i + 1])
-            return (0);
-        else
-            i++;
+        i = j + 1;
+        while(i < arr->num_a)
+        {
+            if (arr->stack_a[j] == arr->stack_a[i])
+                return (0);
+            else
+                i++;
+        }
+        j++;
     }
+
     if (i == arr->num_a)
         return (1);
     else
